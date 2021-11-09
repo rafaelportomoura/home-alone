@@ -23,3 +23,4 @@ guerra mundial, módulo por 12.
 Resposta: 10/11/1918: 1 + 0 + 1 + 1 + 1 + 9 +1 + 8 = 22
 22 mod(12) = 10
 
+![interface](img/trabMapaPPOO-Interface.drawio.png)
