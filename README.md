@@ -4,6 +4,7 @@
   - [Introdução](#introdução)
   - [Como compilar](#como-compilar)
   - [Como executar](#como-executar)
+  
 ## Introdução
 
 Nesse jogo, o jogador será um adolescente que se encontra em sua casa,
@@ -34,11 +35,12 @@ Resposta: 10/11/1918: 1 + 0 + 1 + 1 + 1 + 9 +1 + 8 = 22
 ## Como compilar
 
 ```bash
-
+javac -d src/home_alone src/*java
 ```
 
 ## Como executar
 
 ```bash
-
+cd src/home_alone
+java Programa
 ```
