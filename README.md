@@ -1,6 +1,6 @@
-# home-alone
+# Home Alone
 
-- [home-alone](#home-alone)
+- [Home Alone](#home-alone)
   - [Introdução](#introdução)
   - [Como compilar](#como-compilar)
   - [Como executar](#como-executar)
