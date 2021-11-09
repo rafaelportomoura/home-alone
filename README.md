@@ -1,5 +1,11 @@
 # home-alone
 
+- [home-alone](#home-alone)
+  - [Introdução](#introdução)
+  - [Como compilar](#como-compilar)
+  - [Como executar](#como-executar)
+## Introdução
+
 Nesse jogo, o jogador será um adolescente que se encontra em sua casa,
 sem a presença de nenhum responsável e, por acidente, acabou se ferindo
 gravemente e, por isso, precisa do kit de socorros que se encontra no armário na
@@ -24,3 +30,15 @@ Resposta: 10/11/1918: 1 + 0 + 1 + 1 + 1 + 9 +1 + 8 = 22
 22 mod(12) = 10
 
 ![interface](img/trabMapaPPOO-Interface.drawio.png)
+
+## Como compilar
+
+```bash
+
+```
+
+## Como executar
+
+```bash
+
+```
