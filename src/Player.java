@@ -4,8 +4,8 @@ class Player {
     private int vida;
     private Ambiente ambiente;
 
-    public Player(int vida, Ambiente ambiente) {
-        this.vida = vida;
+    public Player(Ambiente ambiente) {
+        this.vida = 100;
         this.ambiente = ambiente;
     }
 
