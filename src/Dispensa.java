@@ -2,18 +2,25 @@ import java.util.List;
 
 public class Dispensa extends Ambiente {
 
-    public Dispensa(String nome, List<Integer> saidas) {
+    private Dica dica;
+
+    public Dispensa(String nome, int comodoComAChave, List<Integer> saidas) {
         super(nome, saidas);
+        criarDica(comodoComAChave);
     }
 
-    public Dispensa(String nome) {
+    public Dispensa(String nome, int comodoComAChave) {
         super(nome);
-        //TODO Auto-generated constructor stub
+        criarDica(comodoComAChave);
+    }
+
+    private void criarDica(int comodoComAChave) {
+        dica = new Dica(comodoComAChave);
     }
 
     @Override
     public Item buscar() {
-        return new Dica();
+        return dica;
     }
 
 }
