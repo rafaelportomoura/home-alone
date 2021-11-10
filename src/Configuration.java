@@ -43,20 +43,20 @@ public class Configuration {
   private void criarAmbientes() {
     AMBIENTES = new HashMap<Integer, Ambiente>();
 
-    AMBIENTES.put(1, new Comodo("Cozinha"));
-    AMBIENTES.put(2, new Comodo("Lavanderia"));
-    AMBIENTES.put(3, new Comodo("Banheiro"));
-    AMBIENTES.put(4, new Comodo("Sala de Jantar"));
-    AMBIENTES.put(5, new Comodo("Sala de estar"));
-    AMBIENTES.put(6, new Comodo("Sala de TV"));
-    AMBIENTES.put(7, new Comodo("Corredor 1"));
-    AMBIENTES.put(8, new Comodo("Hall de Entrada"));
-    AMBIENTES.put(9, new Comodo("Quarto"));
-    AMBIENTES.put(10, new Comodo("Corredor 2"));
-    AMBIENTES.put(11, new Comodo("Escritório"));
-    AMBIENTES.put(12, new Comodo("Banheiro"));
+    AMBIENTES.put(1, new Comodo("Cozinha", new int[] { 2, 4 }));
+    AMBIENTES.put(2, new Comodo("Lavanderia", new int[] { 1 }));
+    AMBIENTES.put(3, new Comodo("Banheiro", new int[] { 5 }));
+    AMBIENTES.put(4, new Comodo("Sala de Jantar", new int[] { 5 }));
+    AMBIENTES.put(5, new Comodo("Sala de estar", new int[] { 3, 4, 7 }));
+    AMBIENTES.put(6, new Comodo("Sala de TV", new int[] { 7 }));
+    AMBIENTES.put(7, new Comodo("Corredor 1", new int[] { 5, 6, 7 }));
+    AMBIENTES.put(8, new Comodo("Hall de Entrada", new int[] { 7, 10 }));
+    AMBIENTES.put(9, new Comodo("Quarto", new int[] { 10, 12 }));
+    AMBIENTES.put(10, new Comodo("Corredor 2", new int[] { 8, 9, 11 }));
+    AMBIENTES.put(11, new Comodo("Escritório", new int[] { 10, 13 }));
+    AMBIENTES.put(12, new Comodo("Banheiro", new int[] { 9 }));
     int ambienteQueTeraAChave = determinaAmbienteComChave();
-    AMBIENTES.put(13, new Dispensa("Dispensa", ambienteQueTeraAChave));
+    AMBIENTES.put(13, new Dispensa("Dispensa", ambienteQueTeraAChave,new int[] { 11 }));
 
   }
 
