@@ -65,11 +65,6 @@ public class Configuration {
 
     Ambiente ambiente = AMBIENTES.get(ambienteQueTeraAChave);
 
-    while(ambiente instanceof Dispensa){
-      ambienteQueTeraAChave = (int) ((Math.random() * (2 - 12)) + 2);
-      ambiente = AMBIENTES.get(ambienteQueTeraAChave);
-    }
-
     Comodo comChave = (Comodo) ambiente;
 
     comChave.setChave();
