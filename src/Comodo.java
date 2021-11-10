@@ -1,17 +1,10 @@
-import java.util.List;
-
 public class Comodo extends Ambiente {
 
     private Boolean temChave;
 
-    public Comodo(String nome) {
-        super(nome);
+    public Comodo(String nome, int[] saidas) {
+        super(nome, saidas);
         this.temChave = false;
-    }
-
-    public Comodo(String nome, Boolean temChave) {
-        super(nome);
-        this.temChave = temChave;
     }
 
     @Override
