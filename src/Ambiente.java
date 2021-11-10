@@ -5,7 +5,7 @@ public abstract class Ambiente {
 
     public Ambiente(String nome, int[] saidas) {
         this.nome = nome;
-        this.saidas = saidas.clone();
+        this.saidas = saidas;
     }
 
     public abstract Item buscar();
