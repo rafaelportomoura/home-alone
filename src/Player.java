@@ -1,3 +1,4 @@
+import java.util.*;
 
 class Player {
 
@@ -8,6 +9,7 @@ class Player {
     public Player(Ambiente ambiente) {
         this.vida = 100;
         this.ambiente = ambiente;
+        inventario = new HashSet<>();
     }
 
     public void mover(Ambiente ambiente) {
@@ -18,11 +20,19 @@ class Player {
         return ambiente;
     }
 
-    public void buscar() {
-        if (Objects.nonNull(ambiente.buscar()) || ambiente instanceof Dispensa) {
+    public String buscar() {
+        Item buscado = ambiente.buscar();
+        if (Objects.nonNull(buscado)) {
             //encontrou a dica ou a chave
-            inventario.add(ambiente.buscar());
+            inventario.add(buscado);
+            if(buscado instanceof Dica){
+                return "dica";
+            }else{
+                return "chave";
+            }
         }
+
+        return null;
     }
 
     public int getVida() {
@@ -32,29 +42,29 @@ class Player {
     public void perderVida(int dano) {
         this.vida = vida - dano;
     }
-    
+
     public boolean getTemChave(){
-        boolean temChave;
-        
+        boolean temChave = false;
+
         for(Item i : inventario){
             if(i instanceof Chave){
                 temChave = true;
             }
         }
-        
+
         return temChave;
     }
-        
-        
+
+
     public boolean getTemDica(){
-        boolean temDica;
-        
+        boolean temDica = false;
+
         for(Item i : inventario){
             if(i instanceof Dica){
                 temDica = true;
             }
         }
-        
-        return temChave;
+
+        return temDica;
     }
 }

@@ -16,23 +16,23 @@ public class Configuration {
 
   private HashMap<Integer, Ambiente> AMBIENTES;
 
-  private Configuration(String dificuldade) {
+  Configuration(int dificuldade) {
     criarAmbientes();
     determinarDificuldade(dificuldade);
     TEMPO_POR_AMBIENTE = 1;
     TEMPO_DE_BUSCA = 5;
   }
 
-  public static Configuration getConfiguration(String dificuldade) {
+  public static Configuration getConfiguration(int dificuldade) {
     if (config == null) {
       config = new Configuration(dificuldade);
     }
     return config;
   }
 
-  private void determinarDificuldade(String dificuldade) {
+  private void determinarDificuldade(int dificuldade) {
     switch (dificuldade) {
-    case "dificil":
+    case 2:
       this.PERCA_DE_VIDA = 3;
       break;
     default:
@@ -46,10 +46,10 @@ public class Configuration {
     AMBIENTES.put(1, new Comodo("Cozinha", new int[] { 2, 4 }));
     AMBIENTES.put(2, new Comodo("Lavanderia", new int[] { 1 }));
     AMBIENTES.put(3, new Comodo("Banheiro", new int[] { 5 }));
-    AMBIENTES.put(4, new Comodo("Sala de Jantar", new int[] { 5 }));
+    AMBIENTES.put(4, new Comodo("Sala de Jantar", new int[] { 1, 5 }));
     AMBIENTES.put(5, new Comodo("Sala de estar", new int[] { 3, 4, 7 }));
     AMBIENTES.put(6, new Comodo("Sala de TV", new int[] { 7 }));
-    AMBIENTES.put(7, new Comodo("Corredor 1", new int[] { 5, 6, 7 }));
+    AMBIENTES.put(7, new Comodo("Corredor 1", new int[] { 5, 6, 8 }));
     AMBIENTES.put(8, new Comodo("Hall de Entrada", new int[] { 7, 10 }));
     AMBIENTES.put(9, new Comodo("Quarto", new int[] { 10, 12 }));
     AMBIENTES.put(10, new Comodo("Corredor 2", new int[] { 8, 9, 11 }));
@@ -61,7 +61,7 @@ public class Configuration {
   }
 
   private int determinaAmbienteComChave() {
-    int ambienteQueTeraAChave = (int) ((Math.random() * (2 - 12)) + 2);
+    int ambienteQueTeraAChave = (int) ((Math.random() * (12-2)) + 2);
 
     Ambiente ambiente = AMBIENTES.get(ambienteQueTeraAChave);
 
