@@ -32,4 +32,29 @@ class Player {
     public void perderVida(int dano) {
         this.vida = vida - dano;
     }
+    
+    public boolean getTemChave(){
+        boolean temChave;
+        
+        for(Item i : inventario){
+            if(i instanceof Chave){
+                temChave = true;
+            }
+        }
+        
+        return temChave;
+    }
+        
+        
+    public boolean getTemDica(){
+        boolean temDica;
+        
+        for(Item i : inventario){
+            if(i instanceof Dica){
+                temDica = true;
+            }
+        }
+        
+        return temChave;
+    }
 }
