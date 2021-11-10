@@ -3,6 +3,7 @@ class Player {
 
     private int vida;
     private Ambiente ambiente;
+    private Set<Item> inventario; // Set garante que não tem Item duplicado
 
     public Player(Ambiente ambiente) {
         this.vida = 100;
@@ -18,12 +19,9 @@ class Player {
     }
 
     public void buscar() {
-        if (ambiente.getTemChave()) {
-            // receber chave
-        } else if (ambiente instanceof Dispensa) {
-            // habilitar dica
-        } else {
-            // achou nada
+        if (Objects.nonNull(ambiente.buscar()) || ambiente instanceof Dispensa) {
+            //encontrou a dica ou a chave
+            inventario.add(ambiente.buscar());
         }
     }
 
