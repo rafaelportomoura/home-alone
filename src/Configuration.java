@@ -55,12 +55,12 @@ public class Configuration {
     AMBIENTES.put(10, new Comodo("Corredor 2"));
     AMBIENTES.put(11, new Comodo("Escritório"));
     AMBIENTES.put(12, new Comodo("Banheiro"));
-    AMBIENTES.put(13, new Dispensa("Dispensa"));
+    int ambienteQueTeraAChave = determinaAmbienteComChave();
+    AMBIENTES.put(13, new Dispensa("Dispensa", ambienteQueTeraAChave));
 
-    determinaAmbienteComChave();
   }
 
-  private void determinaAmbienteComChave() {
+  private int determinaAmbienteComChave() {
     int ambienteQueTeraAChave = (int) ((Math.random() * (2 - 12)) + 2);
 
     Ambiente ambiente = AMBIENTES.get(ambienteQueTeraAChave);
@@ -68,6 +68,8 @@ public class Configuration {
     Comodo comChave = (Comodo) ambiente;
 
     comChave.setChave();
+
+    return ambienteQueTeraAChave;
   }
 
   public Ambiente getAmbiente(int ambienteId) {
