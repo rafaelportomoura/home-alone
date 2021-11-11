@@ -15,7 +15,7 @@ public class infoJogo extends JPanel{
         espaco = new JLabel("   ",SwingConstants.LEFT);
         labelDificuldade = new JLabel("Dificuldade:",SwingConstants.LEFT);
         valorDificuldade = new JLabel("Dificil",SwingConstants.CENTER);
-        setBackground(Color.black);
+        setBackground(Color.white);
 
         montarPainel();
     }

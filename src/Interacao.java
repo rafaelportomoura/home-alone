@@ -43,7 +43,9 @@ public class Interacao extends JPanel{
     }
 
     public void setOutput(String valor){
-        output.setText(valor);
+        if(!output.getText().contains(valor)){
+            output.setText(valor);
+        }
     }
 
     public void setOutputConcat(String valor){

@@ -65,6 +65,8 @@ public class Configuration {
 
     Ambiente ambiente = AMBIENTES.get(ambienteQueTeraAChave);
 
+    System.out.println("Ambiente com chave " + ambiente.getNome());
+
     Comodo comChave = (Comodo) ambiente;
 
     comChave.setChave();

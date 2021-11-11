@@ -194,7 +194,23 @@ public class Jogo extends TimerTask
                 gui.setOutput("Dificuldade já foi declarada");
             }
         }else if (palavraDeComando.equals("buscar")) {
-            if(player.buscar().equals("dica"));
+            String item = player.buscar();
+            if(Objects.nonNull(item)){
+                String output;
+                if(item.equals("dica")){
+                    gui.setEnigma("o enigma - viih tube");
+                    output = "Dica encontrada!";
+                }else if(item.equals("chave")) {
+                    gui.setChave("Encontrada");
+                    output = "Chave encontrada!";
+                }else{
+                    output = "Nada foi encontrado!";
+                }
+                gui.setOutputConcat(output);
+            }
+        }
+        else if (palavraDeComando.equals("abrir") && player.getTemChave()){
+            querSair = true;
         }
         else if (palavraDeComando.equals("sair")) {
             querSair = sair(comando);

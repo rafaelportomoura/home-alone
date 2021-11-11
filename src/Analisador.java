@@ -65,7 +65,7 @@ public class Analisador
             return new Comando(palavra1, palavra2);
         }
         else {
-            return new Comando(null, palavra2); 
+            return new Comando(palavra1, null); 
         }
     }
 }

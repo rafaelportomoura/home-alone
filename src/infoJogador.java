@@ -20,7 +20,7 @@ public class infoJogador extends JPanel{
         valorTempo = new JLabel("5 Segundos",SwingConstants.CENTER);
         espaco2 = new JLabel("   ",SwingConstants.LEFT);
         chave = new JLabel("Chave: Não encontrada",SwingConstants.CENTER); 
-        setBackground(Color.black);
+        setBackground(Color.white);
  
         criarPainel();
 
