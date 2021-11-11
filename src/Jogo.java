@@ -1,5 +1,6 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.TimerTask;
 
 /**
  *  Essa eh a classe principal da aplicacao "World of Zull".
@@ -18,27 +19,33 @@ import java.util.Scanner;
  * @version 2011.07.31 (2016.02.01)
  */
 
-public class Jogo
+public class Jogo extends TimerTask
 {
 
     private Player player;
+    private GUI gui;
     private Configuration configuration;
-    private Scanner sc = new Scanner(System.in);
+    private String input = "";
+    private Analisador analisador;
 
 
     public Jogo(){
+        gui = new GUI(this);
+        analisador = new Analisador();
     }
 
 
     public void jogar()
     {
+
+        gui.exibir();
+        /*
         int dificuldade = imprimirBoasVindas();
 
         // Entra no loop de comando principal. Aqui nos repetidamente lemos
         // comandos e os executamos ate o jogo terminar.
 
         configuration = new Configuration(dificuldade);
-        player = new Player(configuration.getAmbiente(1));
 
         boolean terminado = false;
         int escolha;
@@ -88,22 +95,161 @@ public class Jogo
             }
 
         }
+        System.out.println("Obrigado por jogar. Ate mais!");*/
+
+        configuration = new Configuration(1);
+        player = new Player(configuration.getAmbiente(1));
+
+        boolean terminado = false;
+        // String inputAtual = "prima";
+        // imprimirDificuldade();
+        while (!terminado) {
+            // if(!inputAtual.equals(input)){
+                // System.out.println("Configuration é null? " + !Objects.nonNull(configuration));
+                Comando comando = analisador.pegarComando(input);
+                terminado = processarComando(comando);
+                if(Objects.nonNull(configuration)){
+                    imprimirOpcoes();
+                }
+                // inputAtual = input;
+                // System.out.println("Setando inputAtual " + inputAtual);
+                // System.out.println("input " + input + " atual " + inputAtual);
+            // }
+            // System.out.println("input " + input + " atual " + inputAtual);
+
+        }
         System.out.println("Obrigado por jogar. Ate mais!");
     }
 
     /**
      * Imprime a mensagem de abertura para o jogador.
      */
-    private int imprimirBoasVindas(){
-        System.out.println();
-        System.out.println("Bem-vindo ao Home Alone");
-        System.out.println("Selecione a dificuldade");
-        System.out.println("1 - normal");
-        System.out.println("2 - dificil");
-        System.out.print("> ");
-        int dificuldade = sc.nextInt();
+    // private int imprimirBoasVindas(){
+       
+    //    gui.setOutput("Bem-vindo ao Home Alone\nSelecione a dificuldade\n1 - normal\n2 - dificil\n");
 
-        return dificuldade;
+    // }
+
+    private void imprimirOpcoes(){
+        String output = "Comodo atual: " + player.getAmbiente().getNome() + "\nOpcoes de saida: ";
+
+        int[] saidas = player.getAmbiente().getSaidas();
+
+        for(int i=0; i < saidas.length;  i++){
+            output += " [ " + saidas[i] + " " + configuration.getAmbiente(saidas[i]).getNome() + " ] ";
+        }
+
+        gui.setOutput(output);
+    }
+
+    private void imprimirDificuldade(){
+        String output = "Escolha a dificuldade: \n";
+        
+        output += "1 - normal\n";
+        output += "2 - dificil\n";
+
+        gui.setOutputConcat(output);
+    }
+
+    public String getInput() {
+        return this.input;
+    }
+
+    public void setInput(String input){
+        this.input = input;
+    }
+
+    /**
+     * Dado um comando, processa-o (ou seja, executa-o)
+     * @param comando O Comando a ser processado.
+     * @return true se o comando finaliza o jogo.
+     */
+    private boolean processarComando(Comando comando) 
+    {
+        if(!Objects.nonNull(comando)){
+            return false;
+        }
+
+        boolean querSair = false;
+
+        if(comando.ehDesconhecido()) {
+            // System.out.println("Eu nao entendi o que voce disse...");
+            return false;
+        }
+
+        String palavraDeComando = comando.getPalavraDeComando();
+        
+        if (palavraDeComando.equals("ajuda")) {
+            imprimirAjuda();
+        }
+        else if (palavraDeComando.equals("ir")) {
+            irParaAmbiente(comando);
+        }
+        else if (palavraDeComando.equals("dificuldade")) {
+            if(!Objects.nonNull(configuration)){
+                configuration = new Configuration(Integer.parseInt(comando.getSegundaPalavra()));
+                player = new Player(configuration.getAmbiente(1));
+                System.out.println("SETANDO CONFIGURATION");
+            }else{
+                gui.setOutput("Dificuldade já foi declarada");
+            }
+        }else if (palavraDeComando.equals("buscar")) {
+            if(player.buscar().equals("dica"));
+        }
+        else if (palavraDeComando.equals("sair")) {
+            querSair = sair(comando);
+        }
+
+        return querSair;
+    }
+
+    /**
+     * Printe informacoes de ajuda.
+     * Aqui nos imprimimos algo bobo e enigmatico e a lista de 
+     * palavras de comando
+     */
+    private void imprimirAjuda() 
+    {
+        gui.setOutput("Voce esta perdido. Voce esta sozinho. Voce caminha\npela universidade.\n\nSuas palavras de comando sao:\n   ir sair ajuda");
+    }
+
+    private void irParaAmbiente(Comando comando) 
+    {
+        if(!comando.temSegundaPalavra()) {
+            // se nao ha segunda palavra, nao sabemos pra onde ir...
+            gui.setOutput("Ir pra onde?");
+            return;
+        }
+
+        /*
+        fazer player andar
+        */
+
+        player.mover(configuration.getAmbiente(Integer.parseInt(comando.getSegundaPalavra())));
+
+    }
+
+    /** 
+    * "Sair" foi digitado. Verifica o resto do comando pra ver
+    * se nos queremos realmente sair do jogo.
+    * @return true, se este comando sai do jogo, false, caso contrario
+    */
+    private boolean sair(Comando comando) 
+    {
+        if(comando.temSegundaPalavra()) {
+            System.out.println("Sair o que?");
+            return false;
+        }
+        else {
+            return true;  // sinaliza que nos queremos sair
+        }
+    }
+
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

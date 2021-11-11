@@ -11,24 +11,29 @@ public class Interacao extends JPanel{
     private JTextField input;
     private JTextArea output;
 
-    public Interacao(){
+    public Interacao(Jogo jogo){
         input = new JTextField("", 10);
 
         input.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Pensar em alguma forma eficiente de capturar o input.getText() 
                 System.out.println("texto digitado: " + input.getText()); //IMprime o valor digitado
+                jogo.setInput(input.getText());
                 input.setText(""); // limpa o campo de texto
             }
         });
-        input.setBackground(Color.red);
+        input.setBackground(Color.WHITE);
 
         output = new JTextArea();
         output.setColumns(4);
         output.setRows(10);
         output.setEnabled(false);
-        output.setBackground(Color.black);
+        output.setBackground(Color.GRAY);
         montarPainel();
+    }
+
+    public String getInput(){
+        return input.getText();
     }
 
     public void montarPainel(){
@@ -39,6 +44,12 @@ public class Interacao extends JPanel{
 
     public void setOutput(String valor){
         output.setText(valor);
+    }
+
+    public void setOutputConcat(String valor){
+        if(!output.getText().contains(valor)){
+            output.setText(output.getText() + "\n" + valor);
+        }
     }
 
 }

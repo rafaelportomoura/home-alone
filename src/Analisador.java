@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -34,25 +35,29 @@ public class Analisador
     /**
      * @return O proximo comando do usuario
      */
-    public Comando pegarComando() 
+    public Comando pegarComando(String linha) 
     {
-        String linha;   // guardara uma linha inteira
+
+        // System.out.println(linha + " linha");
+        if(!Objects.nonNull(linha)){
+            return null;
+        }
+
         String palavra1 = null;
         String palavra2 = null;
 
-        System.out.print("> ");     // imprime o prompt
-
-        linha = entrada.nextLine();
 
         // Tenta encontrar ate duas palavras na linha
-        Scanner tokenizer = new Scanner(linha);
-        if(tokenizer.hasNext()) {
-            palavra1 = tokenizer.next();      // pega a primeira palavra
-            if(tokenizer.hasNext()) {
-                palavra2 = tokenizer.next();      // pega a segunda palavra
-                // obs: nos simplesmente ignoramos o resto da linha.
-            }
+        String[] palavras = linha.split(" ");
+
+        if(palavras.length == 2) {
+            palavra1 = palavras[0];   
+            palavra2 = palavras[1];
+        }else if (palavras.length == 1){
+            palavra1 = palavras[0];   
         }
+
+        // System.out.println(palavra1 + " 1 asdas 2 " + palavra2);
 
         // Agora verifica se esta palavra eh conhecida. Se for, cria um
         // com ela. Se nao, cria um comando "null" (para comando desconhecido)
