@@ -5,14 +5,20 @@ import java.util.List;
 
 public class Arquivo {
   private String arquivoDeHistorico;
+  List<Historico> historicos;
 
   public Arquivo() {
     Configuration conf = Configuration.getConfiguration();
     arquivoDeHistorico = conf.getArquivoDeHistorico();
+    historicos = new ArrayList<Historico>();
   }
 
   public void salvarHistorico(Historico historico) {
+    lerHistorico();
     try (FileWriter arquivo = new FileWriter(arquivoDeHistorico)) {
+      for (Historico historicoDalista : historicos) {
+        arquivo.write(historicoDalista.toString());
+      }
       arquivo.write(historico.toString());
     } catch (FileNotFoundException e) {
       System.out.println("Problema na abertura do arquivo de historico");
@@ -21,11 +27,8 @@ public class Arquivo {
     }
   }
 
-  public List<Historico> retornaRanking() {
-
-    List<Historico> ranking = new ArrayList<Historico>();
+  public void lerHistorico() {
     try (BufferedReader arquivo = new BufferedReader(new FileReader(arquivoDeHistorico))) {
-      List<Historico> historicos = new ArrayList<Historico>();
       String linha = arquivo.readLine();
       while (linha != null) {
         String[] campos = linha.split(";");
@@ -36,15 +39,20 @@ public class Arquivo {
         Historico historicoLido = new Historico(vidaRestante, tempoGasto, encontrouAChave, morreu);
         historicos.add(historicoLido);
       }
-      Collections.sort(historicos);
-      ranking.add(historicos.get(0));
-      ranking.add(historicos.get(1));
-      ranking.add(historicos.get(2));
     } catch (FileNotFoundException e) {
       System.out.println("Problema na abertura do arquivo de historico");
     } catch (IOException e) {
       System.out.println("Problema na leitura do arquivo de historico");
     }
+  }
+
+  public List<Historico> retornaRanking() {
+    lerHistorico();
+    List<Historico> ranking = new ArrayList<Historico>();
+    Collections.sort(historicos);
+    ranking.add(historicos.get(0));
+    ranking.add(historicos.get(1));
+    ranking.add(historicos.get(2));
     return ranking;
   }
 }
