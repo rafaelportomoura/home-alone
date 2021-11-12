@@ -32,8 +32,6 @@ public class Jogo {
     public Jogo() {
         gui = new GUI(this);
         analisador = new Analisador();
-        timer = new Timer();
-        timer.schedule(new CronJob(), 0, 1000);
     }
 
     public void jogar() {
@@ -78,6 +76,8 @@ public class Jogo {
 
         configuration = Configuration.getConfiguration(1);
         player = new Player(configuration.getAmbiente(1));
+        timer = new Timer();
+        timer.schedule(new CronJob(), 0, 1000);
 
         boolean terminado = false;
         // String inputAtual = "prima";
