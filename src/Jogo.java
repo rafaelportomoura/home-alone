@@ -42,20 +42,26 @@ public class Jogo extends TimerTask {
 
         boolean terminado = false;
         while (!terminado) {
-            // if(!inputAtual.equals(input)){
-            // System.out.println("Configuration é null? " +
-            // !Objects.nonNull(configuration));
-            Comando comando = analisador.pegarComando(input);
-            terminado = processarComando(comando);
-            if (Objects.nonNull(configuration)) {
-                imprimirOpcoes();
+            if(player.getVida() == 0){
+                terminado = true;
+                gui.setOutput("OHHH NOOOO VC MORREUUUUU");
+            }else{
+                // if(!inputAtual.equals(input)){
+                // System.out.println("Configuration é null? " +
+                // !Objects.nonNull(configuration));
+                Comando comando = analisador.pegarComando(input);
+                terminado = processarComando(comando);
+                if (Objects.nonNull(configuration)) {
+                    imprimirOpcoes();
+                }
+                gui.setVida(String.valueOf(player.getVida()));
+
+                // inputAtual = input;
+                // System.out.println("Setando inputAtual " + inputAtual);
+                // System.out.println("input " + input + " atual " + inputAtual);
+                // }
+                // System.out.println("input " + input + " atual " + inputAtual);
             }
-            gui.setVida(String.valueOf(player.getVida()));
-            // inputAtual = input;
-            // System.out.println("Setando inputAtual " + inputAtual);
-            // System.out.println("input " + input + " atual " + inputAtual);
-            // }
-            // System.out.println("input " + input + " atual " + inputAtual);
 
         }
         System.out.println("Obrigado por jogar. Ate mais!");
@@ -72,7 +78,11 @@ public class Jogo extends TimerTask {
     // }
 
     private void imprimirOpcoes() {
-        String output = "Comodo atual: " + player.getAmbiente().getNome() + "\nOpcoes de saida: ";
+        String output;
+
+        output = "Comandos disponiveis: ir <nº >";
+
+        output += "Comodo atual: " + player.getAmbiente().getNome() + "\nOpcoes de saida: ";
 
         int[] saidas = player.getAmbiente().getSaidas();
 
