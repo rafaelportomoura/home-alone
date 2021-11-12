@@ -1,6 +1,7 @@
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.TimerTask;
+import java.util.Timer;
 
 /**
  * Essa eh a classe principal da aplicacao "World of Zull". "World of Zuul" eh
@@ -19,17 +20,20 @@ import java.util.TimerTask;
  * @version 2011.07.31 (2016.02.01)
  */
 
-public class Jogo extends TimerTask {
+public class Jogo {
 
     private Player player;
     private GUI gui;
     private Configuration configuration;
     private String input = "";
     private Analisador analisador;
+    private Timer timer;
 
     public Jogo() {
         gui = new GUI(this);
         analisador = new Analisador();
+        timer = new Timer();
+        timer.schedule(new CronJob(), 1000);
     }
 
     public void jogar() {
@@ -231,10 +235,15 @@ public class Jogo extends TimerTask {
         }
     }
 
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-
+    private class CronJob extends TimerTask {
+        @Override
+        public void run() {
+            player.perderVida(configuration.getPercaDeVida());
+            if (player.getVida() <= 0) {
+                timer.cancel();
+                System.out.println("Morreu");
+            }
+        }
     }
 
 }
