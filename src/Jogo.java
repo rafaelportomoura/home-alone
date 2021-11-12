@@ -46,11 +46,13 @@ public class Jogo {
         cronJob = new CronJob();
         timer.schedule(cronJob, 0, 1000);
         gui.setDificuldade("Normal");
-
+        arquivo.salvarChave(configuration.getComodoComAChave());
         boolean terminado = false;
+        boolean morreu = false;
         while (!terminado) {
             if (player.getVida() == 0) {
                 terminado = true;
+                morreu = true;
                 gui.setOutput("OHHH NOOOO VC MORREUUUUU");
             } else {
                 if (cronJob.getAmbientTime() >= 5) {
@@ -62,8 +64,13 @@ public class Jogo {
                     }
                 }
             }
-
         }
+        timer.cancel();
+        int vidaRestante = player.getVida();
+        int tempoTotal = cronJob.getTotalTime();
+        boolean encontrouAChave = player.getTemChave();
+        arquivo.salvarHistorico(new Historico(vidaRestante, tempoTotal, encontrouAChave, morreu));
+
     }
 
     /**
