@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 class Player {
 
     private int vida;
@@ -18,7 +17,7 @@ class Player {
 
     public void mover(Ambiente ambiente) {
         this.ambiente = ambiente;
-        this.perderVida(configuration.getConfiguration().getPercaDeVida());
+        this.perderVida(Configuration.getConfiguration().getPercaDeVida());
     }
 
     public Ambiente getAmbiente() {
@@ -26,9 +25,9 @@ class Player {
     }
 
     public String buscar() {
-        if(!this.ambientesJaBuscados.contains(this.ambiente)){
+        if (!this.ambientesJaBuscados.contains(this.ambiente)) {
             Item buscado = ambiente.buscar();
-            this.perderVida(configuration.getConfiguration().getPercaDeVida() * 5);
+            this.perderVida(Configuration.getConfiguration().getPercaDeVida() * 5);
             if (Objects.nonNull(buscado)) {
                 // encontrou a dica ou a chave
                 inventario.add(buscado);

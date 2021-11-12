@@ -57,7 +57,7 @@ public class Arquivo {
     }
   }
 
-  public List<Historico> retornaRanking() {
+  public List<Historico> getRanking() {
     lerHistorico();
     List<Historico> ranking = new ArrayList<Historico>();
     Collections.sort(historicos);

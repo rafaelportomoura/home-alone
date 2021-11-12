@@ -1,6 +1,7 @@
 import java.util.Objects;
 import java.util.TimerTask;
 import java.util.Timer;
+import java.util.List;
 
 /**
  * Essa eh a classe principal da aplicacao "World of Zull". "World of Zuul" eh
@@ -93,15 +94,6 @@ public class Jogo {
         gui.setOutput(output);
     }
 
-    private void imprimirDificuldade() {
-        String output = "Escolha a dificuldade: \n";
-
-        output += "1 - normal\n";
-        output += "2 - dificil\n";
-
-        gui.setOutputConcat(output);
-    }
-
     public String getInput() {
         return this.input;
     }
@@ -160,8 +152,14 @@ public class Jogo {
             }
         } else if (palavraDeComando.equals("abrir") && player.getTemChave()) {
             querSair = true;
-        } else if (palavraDeComando.equals("salvar")) {
-            /* ablablue */
+        } else if (palavraDeComando.equals("ranking")) {
+            String output = "";
+            List<Historico> ranking = arquivo.getRanking();
+            output += ranking.get(0).rankingTemplate();
+            output += ranking.get(1).rankingTemplate();
+            output += ranking.get(2).rankingTemplate();
+            gui.setOutput(output);
+            imprimirOpcoes();
         }
 
         return querSair;
@@ -193,21 +191,6 @@ public class Jogo {
 
         player.mover(configuration.getAmbiente(Integer.parseInt(comando.getSegundaPalavra())));
 
-    }
-
-    /**
-     * "Sair" foi digitado. Verifica o resto do comando pra ver se nos queremos
-     * realmente sair do jogo.
-     * 
-     * @return true, se este comando sai do jogo, false, caso contrario
-     */
-    private boolean sair(Comando comando) {
-        if (comando.temSegundaPalavra()) {
-            System.out.println("Sair o que?");
-            return false;
-        } else {
-            return true; // sinaliza que nos queremos sair
-        }
     }
 
     private class CronJob extends TimerTask {
