@@ -37,65 +37,36 @@ public class Jogo {
     public void jogar() {
 
         gui.exibir();
-        /*
-         * int dificuldade = imprimirBoasVindas();
-         * 
-         * // Entra no loop de comando principal. Aqui nos repetidamente lemos //
-         * comandos e os executamos ate o jogo terminar.
-         * 
-         * configuration = Configuration.getConfiguration(dificuldade);
-         * 
-         * boolean terminado = false; int escolha; while (!terminado) { int[] saidas =
-         * player.getAmbiente().getSaidas();
-         * 
-         * System.out.println("ESTOU NO " + player.getAmbiente().getNome()); for(int
-         * i=0; i < saidas.length; i++){ System.out.println(i + " " +
-         * configuration.getAmbiente(saidas[i]).getNome()); }
-         * 
-         * int maxValue = saidas.length;
-         * 
-         * System.out.println(maxValue + 1 + " buscar"); if(player.getAmbiente()
-         * instanceof Dispensa){ System.out.println(maxValue + 2 + " tentar abrir"); }
-         * System.out.println();
-         * 
-         * escolha = sc.nextInt();
-         * 
-         * if(escolha < maxValue){
-         * player.mover(configuration.getAmbiente(saidas[escolha])); }else{ if(escolha
-         * == maxValue+1){ String resultado = player.buscar();
-         * 
-         * if(Objects.nonNull(resultado)){ switch(resultado){ case "dica": //emite dica
-         * pra GUI System.out.println("Achou dica"); break; default: //emite achou chave
-         * para gui System.out.println("Achou chave"); } } }else if(escolha ==
-         * maxValue+2 && player.getAmbiente() instanceof Dispensa){ // tentar abrir
-         * dispensa if(player.getTemChave()){ terminado = true; } }else{
-         * System.out.println("Escolha invalida"); } }
-         * 
-         * } System.out.println("Obrigado por jogar. Ate mais!");
-         */
 
         configuration = Configuration.getConfiguration(1);
         player = new Player(configuration.getAmbiente(1));
         timer = new Timer();
         timer.schedule(new CronJob(), 0, 1000);
+        gui.setDificuldade("Normal");
+
 
         boolean terminado = false;
-        // String inputAtual = "prima";
-        // imprimirDificuldade();
         while (!terminado) {
-            // if(!inputAtual.equals(input)){
-            // System.out.println("Configuration é null? " +
-            // !Objects.nonNull(configuration));
-            Comando comando = analisador.pegarComando(input);
-            terminado = processarComando(comando);
-            if (Objects.nonNull(configuration)) {
-                imprimirOpcoes();
+            if(player.getVida() == 0){
+                terminado = true;
+                gui.setOutput("OHHH NOOOO VC MORREUUUUU");
+            }else{
+                // if(!inputAtual.equals(input)){
+                // System.out.println("Configuration é null? " +
+                // !Objects.nonNull(configuration));
+                Comando comando = analisador.pegarComando(input);
+                terminado = processarComando(comando);
+                if (Objects.nonNull(configuration)) {
+                    imprimirOpcoes();
+                }
+                gui.setVida(String.valueOf(player.getVida()));
+
+                // inputAtual = input;
+                // System.out.println("Setando inputAtual " + inputAtual);
+                // System.out.println("input " + input + " atual " + inputAtual);
+                // }
+                // System.out.println("input " + input + " atual " + inputAtual);
             }
-            // inputAtual = input;
-            // System.out.println("Setando inputAtual " + inputAtual);
-            // System.out.println("input " + input + " atual " + inputAtual);
-            // }
-            // System.out.println("input " + input + " atual " + inputAtual);
 
         }
         System.out.println("Obrigado por jogar. Ate mais!");
@@ -112,7 +83,11 @@ public class Jogo {
     // }
 
     private void imprimirOpcoes() {
-        String output = "Comodo atual: " + player.getAmbiente().getNome() + "\nOpcoes de saida: ";
+        String output;
+
+        output = "Comandos disponiveis: ir <nº >";
+
+        output += "Comodo atual: " + player.getAmbiente().getNome() + "\nOpcoes de saida: ";
 
         int[] saidas = player.getAmbiente().getSaidas();
 
@@ -146,8 +121,9 @@ public class Jogo {
      * @param comando O Comando a ser processado.
      * @return true se o comando finaliza o jogo.
      */
-    private boolean processarComando(Comando comando) {
-        if (!Objects.nonNull(comando)) {
+    private boolean processarComando(Comando comando)
+    {
+        if(!Objects.nonNull(comando)){
             return false;
         }
 
@@ -216,18 +192,22 @@ public class Jogo {
          * fazer player andar
          */
 
+         if(player.getAmbiente().equals(configuration.getAmbiente(Integer.parseInt(comando.getSegundaPalavra())))){
+             return;
+         }
+
         player.mover(configuration.getAmbiente(Integer.parseInt(comando.getSegundaPalavra())));
 
     }
 
     /**
-     * "Sair" foi digitado. Verifica o resto do comando pra ver se nos queremos
-     * realmente sair do jogo.
-     * 
-     * @return true, se este comando sai do jogo, false, caso contrario
-     */
-    private boolean sair(Comando comando) {
-        if (comando.temSegundaPalavra()) {
+    * "Sair" foi digitado. Verifica o resto do comando pra ver
+    * se nos queremos realmente sair do jogo.
+    * @return true, se este comando sai do jogo, false, caso contrario
+    */
+    private boolean sair(Comando comando)
+    {
+        if(comando.temSegundaPalavra()) {
             System.out.println("Sair o que?");
             return false;
         } else {
