@@ -1,5 +1,4 @@
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -28,6 +27,7 @@ public class Jogo {
     private String input = "";
     private Analisador analisador;
     private Timer timer;
+    private CronJob cronJob;
 
     public Jogo() {
         gui = new GUI(this);
@@ -41,7 +41,8 @@ public class Jogo {
         configuration = Configuration.getConfiguration(1);
         player = new Player(configuration.getAmbiente(1));
         timer = new Timer();
-        timer.schedule(new CronJob(), 0, 1000);
+        cronJob = new CronJob();
+        timer.schedule(cronJob, 0, 1000);
         gui.setDificuldade("Normal");
 
 
@@ -51,21 +52,14 @@ public class Jogo {
                 terminado = true;
                 gui.setOutput("OHHH NOOOO VC MORREUUUUU");
             }else{
-                // if(!inputAtual.equals(input)){
-                // System.out.println("Configuration é null? " +
-                // !Objects.nonNull(configuration));
-                Comando comando = analisador.pegarComando(input);
-                terminado = processarComando(comando);
-                if (Objects.nonNull(configuration)) {
-                    imprimirOpcoes();
+                if(cronJob.getAmbientTime() >= 5){
+                        Comando comando = analisador.pegarComando(input);
+                        terminado = processarComando(comando);
+                        if (Objects.nonNull(configuration)) {
+                            imprimirOpcoes();
+                        gui.setVida(String.valueOf(player.getVida()));
+                    }
                 }
-                gui.setVida(String.valueOf(player.getVida()));
-
-                // inputAtual = input;
-                // System.out.println("Setando inputAtual " + inputAtual);
-                // System.out.println("input " + input + " atual " + inputAtual);
-                // }
-                // System.out.println("input " + input + " atual " + inputAtual);
             }
 
         }
@@ -150,10 +144,14 @@ public class Jogo {
             }
         } else if (palavraDeComando.equals("buscar")) {
             String item = player.buscar();
+            if(Objects.nonNull(item) && !item.equals("nao buscou")){
+                System.out.println("Ablabue");
+                cronJob.resetAmbientTime();
+            }
             if (Objects.nonNull(item)) {
                 String output;
                 if (item.equals("dica")) {
-                    gui.setEnigma("o enigma - viih tube");
+                    gui.setEnigma(Configuration.getEnigma(configuration.getQuartoEscolhido()));
                     output = "Dica encontrada!";
                 } else if (item.equals("chave")) {
                     gui.setChave("Encontrada");
@@ -220,7 +218,7 @@ public class Jogo {
         private int totalTime;
 
         public CronJob() {
-            ambientTime = 0;
+            ambientTime = 5;
             totalTime = 0;
         }
 
@@ -231,7 +229,6 @@ public class Jogo {
             totalTime += 1;
             if (player.getVida() <= 0) {
                 timer.cancel();
-                System.out.println("Morreu");
             }
         }
 
@@ -240,7 +237,7 @@ public class Jogo {
         }
 
         public void resetAmbientTime() {
-            this.ambientTime = ambientTime;
+            this.ambientTime = 0;
         }
 
         public int getTotalTime() {
