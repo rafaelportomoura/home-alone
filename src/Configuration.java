@@ -54,9 +54,11 @@ public class Configuration {
     switch (dificuldade) {
     case 2:
       this.PERCA_DE_VIDA = 3;
+      this.DIFICULDADE = "Difícil";
       break;
     default:
       this.PERCA_DE_VIDA = 2;
+      this.DIFICULDADE = "Normal";
     }
   }
 
