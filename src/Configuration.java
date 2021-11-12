@@ -12,8 +12,6 @@ public class Configuration {
   // Tempo para o usuário mover de um ambiente ao outro buscando pela chave
   private int TEMPO_DE_BUSCA;
 
-  private String DIFICULDADE;
-
   private int QUARTO_ESCOLHIDO;
 
   private HashMap<Integer, Ambiente> AMBIENTES;
@@ -33,10 +31,10 @@ public class Configuration {
 
   private void constructorConfiguration(int dificuldade) {
     criarAmbientes();
-    determinarDificuldade(dificuldade);
     TEMPO_POR_AMBIENTE = 1;
     TEMPO_DE_BUSCA = 5;
     arquivoDeHistorico = "historico.txt";
+    this.PERCA_DE_VIDA = 2;
 
   }
 
@@ -52,18 +50,6 @@ public class Configuration {
       config = new Configuration();
     }
     return config;
-  }
-
-  private void determinarDificuldade(int dificuldade) {
-    switch (dificuldade) {
-    case 2:
-      this.PERCA_DE_VIDA = 3;
-      this.DIFICULDADE = "Difícil";
-      break;
-    default:
-      this.PERCA_DE_VIDA = 2;
-      this.DIFICULDADE = "Normal";
-    }
   }
 
   private void criarAmbientes() {
@@ -118,10 +104,6 @@ public class Configuration {
 
   public int getTempoDeBusca() {
     return TEMPO_DE_BUSCA;
-  }
-
-  public String getDificuldade() {
-    return DIFICULDADE;
   }
 
   public int getQuartoEscolhido() {
