@@ -13,6 +13,17 @@ public class Arquivo {
     historicos = new ArrayList<Historico>();
   }
 
+  public void salvarChave(String comodo) {
+    try (FileWriter arquivo = new FileWriter("comodoComChave.txt")) {
+      arquivo.write(comodo);
+    } catch (FileNotFoundException e) {
+      System.out.println("Problema na abertura do arquivo de chave");
+    } catch (IOException e) {
+      System.out.println("Falha ao salvar histórico de chave" + arquivoDeHistorico);
+    }
+
+  }
+
   public void salvarHistorico(Historico historico) {
     lerHistorico();
     try (FileWriter arquivo = new FileWriter(arquivoDeHistorico)) {
@@ -33,7 +44,7 @@ public class Arquivo {
       while (linha != null) {
         String[] campos = linha.split(";");
         int vidaRestante = Integer.parseInt(campos[0]);
-        double tempoGasto = Double.parseDouble(campos[1]);
+        int tempoGasto = Integer.parseInt(campos[1]);
         boolean encontrouAChave = Boolean.parseBoolean(campos[2]);
         boolean morreu = Boolean.parseBoolean(campos[3]);
         Historico historicoLido = new Historico(vidaRestante, tempoGasto, encontrouAChave, morreu);

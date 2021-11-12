@@ -28,10 +28,12 @@ public class Jogo {
     private String input = "";
     private Analisador analisador;
     private Timer timer;
+    private Arquivo arquivo;
 
     public Jogo() {
         gui = new GUI(this);
         analisador = new Analisador();
+        arquivo = new Arquivo();
     }
 
     public void jogar() {
@@ -44,13 +46,12 @@ public class Jogo {
         timer.schedule(new CronJob(), 0, 1000);
         gui.setDificuldade("Normal");
 
-
         boolean terminado = false;
         while (!terminado) {
-            if(player.getVida() == 0){
+            if (player.getVida() == 0) {
                 terminado = true;
                 gui.setOutput("OHHH NOOOO VC MORREUUUUU");
-            }else{
+            } else {
                 // if(!inputAtual.equals(input)){
                 // System.out.println("Configuration é null? " +
                 // !Objects.nonNull(configuration));
@@ -121,9 +122,8 @@ public class Jogo {
      * @param comando O Comando a ser processado.
      * @return true se o comando finaliza o jogo.
      */
-    private boolean processarComando(Comando comando)
-    {
-        if(!Objects.nonNull(comando)){
+    private boolean processarComando(Comando comando) {
+        if (!Objects.nonNull(comando)) {
             return false;
         }
 
@@ -192,22 +192,22 @@ public class Jogo {
          * fazer player andar
          */
 
-         if(player.getAmbiente().equals(configuration.getAmbiente(Integer.parseInt(comando.getSegundaPalavra())))){
-             return;
-         }
+        if (player.getAmbiente().equals(configuration.getAmbiente(Integer.parseInt(comando.getSegundaPalavra())))) {
+            return;
+        }
 
         player.mover(configuration.getAmbiente(Integer.parseInt(comando.getSegundaPalavra())));
 
     }
 
     /**
-    * "Sair" foi digitado. Verifica o resto do comando pra ver
-    * se nos queremos realmente sair do jogo.
-    * @return true, se este comando sai do jogo, false, caso contrario
-    */
-    private boolean sair(Comando comando)
-    {
-        if(comando.temSegundaPalavra()) {
+     * "Sair" foi digitado. Verifica o resto do comando pra ver se nos queremos
+     * realmente sair do jogo.
+     * 
+     * @return true, se este comando sai do jogo, false, caso contrario
+     */
+    private boolean sair(Comando comando) {
+        if (comando.temSegundaPalavra()) {
             System.out.println("Sair o que?");
             return false;
         } else {
