@@ -27,11 +27,11 @@ class Player {
         Item buscado = ambiente.buscar();
         this.perderVida(configuration.getConfiguration().getPercaDeVida() * 5);
         if (Objects.nonNull(buscado)) {
-            //encontrou a dica ou a chave
+            // encontrou a dica ou a chave
             inventario.add(buscado);
-            if(buscado instanceof Dica){
+            if (buscado instanceof Dica) {
                 return "dica";
-            }else{
+            } else {
                 return "chave";
             }
         }
@@ -45,13 +45,16 @@ class Player {
 
     public void perderVida(int dano) {
         this.vida = vida - dano;
+        if (vida < 0) {
+            vida = 0;
+        }
     }
 
-    public boolean getTemChave(){
+    public boolean getTemChave() {
         boolean temChave = false;
 
-        for(Item i : inventario){
-            if(i instanceof Chave){
+        for (Item i : inventario) {
+            if (i instanceof Chave) {
                 temChave = true;
             }
         }
@@ -59,12 +62,11 @@ class Player {
         return temChave;
     }
 
-
-    public boolean getTemDica(){
+    public boolean getTemDica() {
         boolean temDica = false;
 
-        for(Item i : inventario){
-            if(i instanceof Dica){
+        for (Item i : inventario) {
+            if (i instanceof Dica) {
                 temDica = true;
             }
         }
