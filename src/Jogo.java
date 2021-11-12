@@ -63,18 +63,12 @@ public class Jogo {
             }
 
         }
-        System.out.println("Obrigado por jogar. Ate mais!");
     }
 
     /**
      * Imprime a mensagem de abertura para o jogador.
      */
-    // private int imprimirBoasVindas(){
 
-    // gui.setOutput("Bem-vindo ao Home Alone\nSelecione a dificuldade\n1 -
-    // normal\n2 - dificil\n");
-
-    // }
 
     private void imprimirOpcoes() {
         String output;
@@ -124,7 +118,6 @@ public class Jogo {
         boolean querSair = false;
 
         if (comando.ehDesconhecido()) {
-            // System.out.println("Eu nao entendi o que voce disse...");
             return false;
         }
 
@@ -138,14 +131,12 @@ public class Jogo {
             if (!Objects.nonNull(configuration)) {
                 configuration = Configuration.getConfiguration(Integer.parseInt(comando.getSegundaPalavra()));
                 player = new Player(configuration.getAmbiente(1));
-                System.out.println("SETANDO CONFIGURATION");
             } else {
                 gui.setOutput("Dificuldade já foi declarada");
             }
         } else if (palavraDeComando.equals("buscar")) {
             String item = player.buscar();
             if(Objects.nonNull(item) && !item.equals("nao buscou")){
-                System.out.println("Ablabue");
                 cronJob.resetAmbientTime();
             }
             if (Objects.nonNull(item)) {
@@ -163,8 +154,8 @@ public class Jogo {
             }
         } else if (palavraDeComando.equals("abrir") && player.getTemChave()) {
             querSair = true;
-        } else if (palavraDeComando.equals("sair")) {
-            querSair = sair(comando);
+        } else if (palavraDeComando.equals("salvar")) {
+            /*  ablablue  */
         }
 
         return querSair;
