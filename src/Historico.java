@@ -27,4 +27,20 @@ public class Historico implements Comparable<Historico> {
     return 0;
   }
 
+  public int getVidaRestante() {
+    return vidaRestante;
+  }
+
+  public double getTempoGasto() {
+    return tempoGasto;
+  }
+
+  public boolean isMorreu() {
+    return morreu;
+  }
+
+  public boolean isEncontrouAChave() {
+    return encontrouAChave;
+  }
+
 }
