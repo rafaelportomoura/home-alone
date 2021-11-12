@@ -33,7 +33,7 @@ public class Jogo {
         gui = new GUI(this);
         analisador = new Analisador();
         timer = new Timer();
-        timer.schedule(new CronJob(), 1000);
+        timer.schedule(new CronJob(), 0, 1000);
     }
 
     public void jogar() {
