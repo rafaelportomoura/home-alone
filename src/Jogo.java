@@ -236,13 +236,35 @@ public class Jogo {
     }
 
     private class CronJob extends TimerTask {
+        private int ambientTime;
+        private int totalTime;
+
+        public CronJob() {
+            ambientTime = 0;
+            totalTime = 0;
+        }
+
         @Override
         public void run() {
             player.perderVida(configuration.getPercaDeVida());
+            ambientTime += 1;
+            totalTime += 1;
             if (player.getVida() <= 0) {
                 timer.cancel();
                 System.out.println("Morreu");
             }
+        }
+
+        public int getAmbientTime() {
+            return ambientTime;
+        }
+
+        public void resetAmbientTime() {
+            this.ambientTime = ambientTime;
+        }
+
+        public int getTotalTime() {
+            return totalTime;
         }
     }
 
