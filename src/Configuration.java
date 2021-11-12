@@ -16,16 +16,36 @@ public class Configuration {
 
   private HashMap<Integer, Ambiente> AMBIENTES;
 
-  Configuration(int dificuldade) {
+  // Nome do arquivo de histórico de partidas
+  private String arquivoDeHistorico;
+
+  private Configuration(int dificuldade) {
+    constructorConfiguration(dificuldade);
+  }
+
+  private Configuration() {
+    constructorConfiguration(1);
+  }
+
+  private void constructorConfiguration(int dificuldade) {
     criarAmbientes();
     determinarDificuldade(dificuldade);
     TEMPO_POR_AMBIENTE = 1;
     TEMPO_DE_BUSCA = 5;
+    arquivoDeHistorico = "historico.txt";
+
   }
 
   public static Configuration getConfiguration(int dificuldade) {
     if (config == null) {
       config = new Configuration(dificuldade);
+    }
+    return config;
+  }
+
+  public static Configuration getConfiguration() {
+    if (config == null) {
+      config = new Configuration();
     }
     return config;
   }
@@ -56,12 +76,12 @@ public class Configuration {
     AMBIENTES.put(11, new Comodo("Escritório", new int[] { 10, 13 }));
     AMBIENTES.put(12, new Comodo("Banheiro", new int[] { 9 }));
     int ambienteQueTeraAChave = determinaAmbienteComChave();
-    AMBIENTES.put(13, new Dispensa("Dispensa", ambienteQueTeraAChave,new int[] { 11 }));
+    AMBIENTES.put(13, new Dispensa("Dispensa", ambienteQueTeraAChave, new int[] { 11 }));
 
   }
 
   private int determinaAmbienteComChave() {
-    int ambienteQueTeraAChave = (int) ((Math.random() * (12-2)) + 2);
+    int ambienteQueTeraAChave = (int) ((Math.random() * (12 - 2)) + 2);
 
     Ambiente ambiente = AMBIENTES.get(ambienteQueTeraAChave);
 
@@ -96,6 +116,10 @@ public class Configuration {
 
   public String getDificuldade() {
     return DIFICULDADE;
+  }
+
+  public String getArquivoDeHistorico() {
+    return arquivoDeHistorico;
   }
 
 }
