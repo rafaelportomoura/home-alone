@@ -14,6 +14,8 @@ public class Configuration {
 
   private String DIFICULDADE;
 
+  private int QUARTO_ESCOLHIDO;
+
   private HashMap<Integer, Ambiente> AMBIENTES;
 
   // Nome do arquivo de histórico de partidas
@@ -83,9 +85,9 @@ public class Configuration {
   }
 
   private int determinaAmbienteComChave() {
-    int ambienteQueTeraAChave = (int) ((Math.random() * (12 - 2)) + 2);
+    QUARTO_ESCOLHIDO = (int) ((Math.random() * (12 - 2)) + 2);
 
-    Ambiente ambiente = AMBIENTES.get(ambienteQueTeraAChave);
+    Ambiente ambiente = AMBIENTES.get(QUARTO_ESCOLHIDO);
 
     System.out.println("Ambiente com chave " + ambiente.getNome());
 
@@ -93,7 +95,7 @@ public class Configuration {
 
     comChave.setChave();
 
-    return ambienteQueTeraAChave;
+    return QUARTO_ESCOLHIDO;
   }
 
   public Ambiente getAmbiente(int ambienteId) {
@@ -120,8 +122,51 @@ public class Configuration {
     return DIFICULDADE;
   }
 
+  public int getQuartoEscolhido() {
+    return QUARTO_ESCOLHIDO;
+  }
+
   public String getArquivoDeHistorico() {
     return arquivoDeHistorico;
+  }
+
+  public static String getEnigma(int esc){
+    switch(esc){
+      case 2:
+        return "Ano do descobrimento do Brasil mod 7";
+
+      case 3:
+        return "A idade de jesus quando foi crusificado mod 6";
+
+      case 4:
+        return "Dia da data da queda do imperio Romano";
+
+      case 5:
+        return "Ano da queda do império Otomano mod 9";
+
+      case 6:
+        return "O dia da data do dia D";
+
+      case 7:
+        return "Dia da data de comemoração da independência do Brasil";
+
+      case 8:
+        return "Ano do nascimento de Alan Turing mod 16";
+
+      case 9:
+        return "Dia da data da queda do muro de Berlin.";
+
+      case 10:
+        return "A soma dos dígitos da data do último dia da primeira guerra mundial, módulo por 12";
+
+      case 11:
+        return "Dia do atentado as torres gemeas";
+
+      case 12:
+        return "O numero do mês da data da queda da União Soviética";
+
+    }
+    return null;
   }
 
 }

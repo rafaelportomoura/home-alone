@@ -38,10 +38,13 @@ class Player {
                     return "chave";
                 }
             }
+
             this.ambientesJaBuscados.add(this.ambiente);
+
+            return "";
         }
 
-        return null;
+        return "nao buscou";
     }
 
     public int getVida() {

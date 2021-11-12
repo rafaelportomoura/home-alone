@@ -16,8 +16,7 @@ public class Interacao extends JPanel{
 
         input.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Pensar em alguma forma eficiente de capturar o input.getText() 
-                System.out.println("texto digitado: " + input.getText()); //IMprime o valor digitado
+                // Pensar em alguma forma eficiente de capturar o input.getText()
                 jogo.setInput(input.getText());
                 input.setText(""); // limpa o campo de texto
             }
